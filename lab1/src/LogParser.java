@@ -12,7 +12,7 @@ public class LogParser {
     public LogParser(){
       users = new HashMap<Integer, Integer>();
     }
-    public void initializeFromFiles(String filename) throws IOException {
+    public void parseLog(String filename) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filename));
         String str = "";
         while(str != null) {
@@ -34,8 +34,8 @@ public class LogParser {
 
     }
 
-    public TreeMap computeUsersTimes(){
-        TreeMap outA = new TreeMap<Integer,Integer>(Collections.reverseOrder());
+    public TreeMap<Integer,Integer> computeUsersTimes(){
+        TreeMap outA = new TreeMap<Integer,Integer>(Collections.reverseOrder());//Time, Id
         for(Map.Entry<Integer,Integer> s: users.entrySet()) {
             outA.put(s.getValue(),s.getKey());
         }
