@@ -13,13 +13,13 @@ public class LogParser {
       users = new HashMap<Integer, Integer>();
     }
     public void parseLog(String filename) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(filename));
-        String str = "";
-        while(str != null) {
-            str = reader.readLine();
-            parseLine(str);
+        try(BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String str = "";
+            while (str != null) {
+                str = reader.readLine();
+                parseLine(str);
+            }
         }
-
     }
 
     private void parseLine(String line){
@@ -28,16 +28,19 @@ public class LogParser {
         String[] splited = line.split(", ");
         if(splited.length != 3)
             return;
+        if(!splited[2].equals("login") && !splited[2].equals("logout"))
+            return;
 
         Integer last = (Integer) users.get(Integer.parseInt(splited[1]));//if an user already come here at last
-        users.put(Integer.parseInt(splited[1]),Integer.parseInt(splited[0]) +(last == null? 0: last));
+        users.put(Integer.parseInt(splited[1]),Integer.parseInt(splited[0]) * (splited.equals("login")?-1:1) +(last == null? 0: last));
 
     }
 
     public TreeMap<Integer,Integer> computeUsersTimes(){
         TreeMap outA = new TreeMap<Integer,Integer>(Collections.reverseOrder());//Time, Id
         for(Map.Entry<Integer,Integer> s: users.entrySet()) {
-            outA.put(s.getValue(),s.getKey());
+            if(s.getValue() > 0)
+                outA.put(s.getValue(),s.getKey());
         }
 
         return outA;
