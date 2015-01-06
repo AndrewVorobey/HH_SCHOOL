@@ -7,7 +7,6 @@ import java.util.Map;
  */
 public class Main {
     public static int main(String[] args) throws IOException {
-        String filename = "log.txt";
         LogParser lotParser = new LogParser();
         lotParser.parseLog(args[0]);
         System.out.println();
