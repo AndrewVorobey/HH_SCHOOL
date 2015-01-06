@@ -1,0 +1,554 @@
+From bdacc80cab8774dc40cfe0ecd6d837ef03858d67 Mon Sep 17 00:00:00 2001
+From: Andrew <andrew_vorobey@mail.ru>
+Date: Tue, 6 Jan 2015 17:24:35 +0300
+Subject: [PATCH] =?UTF-8?q?=D0=98=D1=81=D0=BF=D1=80=D0=B0=D0=B2=D0=BB?=
+ =?UTF-8?q?=D0=B5=D0=BD=D0=BE=20=D0=BF=D0=BE=D0=B4=20nio?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ lab1/.idea/misc.xml                         |   2 +-
+ lab1/.idea/workspace.xml                    | 187 +++++++++++-----------------
+ lab1/out/production/1st_lab/LogParser.class | Bin 3135 -> 2843 bytes
+ lab1/out/production/1st_lab/Main.class      | Bin 1663 -> 1535 bytes
+ lab1/src/LogParser.java                     |  45 ++++---
+ lab1/src/Main.java                          |   1 -
+ 6 files changed, 95 insertions(+), 140 deletions(-)
+
+diff --git a/lab1/.idea/misc.xml b/lab1/.idea/misc.xml
+index 1e6a484..7d1f1c6 100644
+--- a/lab1/.idea/misc.xml
++++ b/lab1/.idea/misc.xml
+@@ -43,7 +43,7 @@
+   <component name="ProjectModuleManager">
+     <modules />
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+   <component name="PropertiesComponent">
+diff --git a/lab1/.idea/workspace.xml b/lab1/.idea/workspace.xml
+index 87a7ef8..a11bc5b 100644
+--- a/lab1/.idea/workspace.xml
++++ b/lab1/.idea/workspace.xml
+@@ -28,8 +28,8 @@
+       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+         <entry file="file://$PROJECT_DIR$/src/Main.java">
+           <provider selected="true" editor-type-id="text-editor">
+-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
+-              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
++            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
++              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+               <folding>
+                 <element signature="imports" expanded="true" />
+               </folding>
+@@ -40,17 +40,25 @@
+       <file leaf-file-name="LogParser.java" pinned="false" current-in-tab="true">
+         <entry file="file://$PROJECT_DIR$/src/LogParser.java">
+           <provider selected="true" editor-type-id="text-editor">
+-            <state vertical-scroll-proportion="0.57746476" vertical-offset="384" max-vertical-offset="810">
+-              <caret line="42" column="16" selection-start-line="42" selection-start-column="16" selection-end-line="42" selection-end-column="16" />
++            <state vertical-scroll-proportion="0.29577464" vertical-offset="54" max-vertical-offset="918">
++              <caret line="11" column="38" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="38" />
+               <folding>
+                 <element signature="imports" expanded="true" />
+-                <element signature="e#253#254#0" expanded="true" />
+-                <element signature="e#306#307#0" expanded="true" />
+               </folding>
+             </state>
+           </provider>
+         </entry>
+       </file>
++      <file leaf-file-name="List.java" pinned="false" current-in-tab="false">
++        <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/util/List.java">
++          <provider selected="true" editor-type-id="text-editor">
++            <state vertical-scroll-proportion="0.0" vertical-offset="3348" max-vertical-offset="12870">
++              <caret line="237" column="12" selection-start-line="237" selection-start-column="12" selection-end-line="237" selection-end-column="12" />
++              <folding />
++            </state>
++          </provider>
++        </entry>
++      </file>
+     </leaf>
+   </component>
+   <component name="IdeDocumentHistory">
+@@ -58,15 +66,15 @@
+       <list>
+         <option value="$PROJECT_DIR$/src/UsersAnaliz.java" />
+         <option value="$PROJECT_DIR$/src/logParser.java" />
+-        <option value="$PROJECT_DIR$/src/Main.java" />
+         <option value="$PROJECT_DIR$/src/LogParser.java" />
++        <option value="$PROJECT_DIR$/src/Main.java" />
+       </list>
+     </option>
+   </component>
+   <component name="ProjectFrameBounds">
+-    <option name="y" value="24" />
++    <option name="y" value="-4" />
+     <option name="width" value="1366" />
+-    <option name="height" value="744" />
++    <option name="height" value="772" />
+   </component>
+   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+     <OptionsSetting value="true" id="Add" />
+@@ -79,7 +87,7 @@
+     <ConfirmationsSetting value="0" id="Remove" />
+   </component>
+   <component name="ProjectView">
+-    <navigator currentView="ProjectPane" proportions="" version="1">
++    <navigator proportions="" version="1">
+       <flattenPackages />
+       <showMembers />
+       <showModules />
+@@ -90,44 +98,7 @@
+       <autoscrollFromSource />
+       <sortByType />
+     </navigator>
+-    <panes>
+-      <pane id="ProjectPane">
+-        <subPane>
+-          <PATH>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="1st_lab" />
+-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+-            </PATH_ELEMENT>
+-          </PATH>
+-          <PATH>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="1st_lab" />
+-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+-            </PATH_ELEMENT>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="lab1" />
+-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+-            </PATH_ELEMENT>
+-          </PATH>
+-          <PATH>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="1st_lab" />
+-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+-            </PATH_ELEMENT>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="lab1" />
+-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+-            </PATH_ELEMENT>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="src" />
+-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+-            </PATH_ELEMENT>
+-          </PATH>
+-        </subPane>
+-      </pane>
+-      <pane id="PackagesPane" />
+-      <pane id="Scope" />
+-    </panes>
++    <panes />
+   </component>
+   <component name="PropertiesComponent">
+     <property name="GoToClass.includeLibraries" value="false" />
+@@ -136,13 +107,17 @@
+     <property name="MemberChooser.sorted" value="false" />
+     <property name="MemberChooser.showClasses" value="true" />
+     <property name="MemberChooser.copyJavadoc" value="false" />
+-    <property name="project.structure.last.edited" value="Modules" />
++    <property name="project.structure.last.edited" value="Project" />
+     <property name="project.structure.proportion" value="0.15" />
+     <property name="project.structure.side.proportion" value="0.2" />
+     <property name="recentsLimit" value="5" />
+     <property name="dynamic.classpath" value="false" />
+     <property name="FullScreen" value="false" />
+     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
++    <property name="options.lastSelected" value="configurable.group.editor" />
++    <property name="options.splitter.main.proportions" value="0.3" />
++    <property name="options.splitter.details.proportions" value="0.2" />
++    <property name="LayoutCode.rearrangeEntriesJava" value="false" />
+   </component>
+   <component name="RecentsManager">
+     <key name="CopyClassDialog.RECENTS_KEY">
+@@ -229,19 +204,6 @@
+       </ExternalSystemSettings>
+       <method />
+     </configuration>
+-    <configuration default="true" type="Applet" factoryName="Applet">
+-      <module name="" />
+-      <option name="MAIN_CLASS_NAME" />
+-      <option name="HTML_FILE_NAME" />
+-      <option name="HTML_USED" value="false" />
+-      <option name="WIDTH" value="400" />
+-      <option name="HEIGHT" value="300" />
+-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+-      <option name="VM_PARAMETERS" />
+-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+-      <option name="ALTERNATIVE_JRE_PATH" />
+-      <method />
+-    </configuration>
+     <configuration default="true" type="TestNG" factoryName="TestNG">
+       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+       <module name="" />
+@@ -270,6 +232,19 @@
+       <listeners />
+       <method />
+     </configuration>
++    <configuration default="true" type="Applet" factoryName="Applet">
++      <module name="" />
++      <option name="MAIN_CLASS_NAME" />
++      <option name="HTML_FILE_NAME" />
++      <option name="HTML_USED" value="false" />
++      <option name="WIDTH" value="400" />
++      <option name="HEIGHT" value="300" />
++      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
++      <option name="VM_PARAMETERS" />
++      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
++      <option name="ALTERNATIVE_JRE_PATH" />
++      <method />
++    </configuration>
+     <configuration default="true" type="Application" factoryName="Application">
+       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+       <option name="MAIN_CLASS_NAME" />
+@@ -349,7 +324,7 @@
+     <servers />
+   </component>
+   <component name="ToolWindowManager">
+-    <frame x="0" y="24" width="1366" height="744" extended-state="6" />
++    <frame x="0" y="-4" width="1366" height="772" extended-state="6" />
+     <editor active="true" />
+     <layout>
+       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+@@ -358,7 +333,6 @@
+       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.07988165" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39940828" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+@@ -374,6 +348,7 @@
+       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32988167" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
++      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.07988165" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+     </layout>
+@@ -389,19 +364,19 @@
+       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39940828" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
++      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32988167" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
++      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32988167" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
++      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
++      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32988167" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+     </layout-to-restore>
+   </component>
+   <component name="Vcs.Log.UiProperties">
+@@ -433,6 +408,26 @@
+   <component name="editorHistoryManager">
+     <entry file="file://$PROJECT_DIR$/src/Main.java">
+       <provider selected="true" editor-type-id="text-editor">
++        <state vertical-scroll-proportion="0.0" vertical-offset="198" max-vertical-offset="468">
++          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
++          <folding>
++            <element signature="imports" expanded="true" />
++          </folding>
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/src/LogParser.java">
++      <provider selected="true" editor-type-id="text-editor">
++        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="972">
++          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
++          <folding>
++            <element signature="imports" expanded="true" />
++          </folding>
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/src/Main.java">
++      <provider selected="true" editor-type-id="text-editor">
+         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
+           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+           <folding>
+@@ -447,8 +442,6 @@
+           <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+           <folding>
+             <element signature="imports" expanded="true" />
+-            <element signature="e#253#254#0" expanded="true" />
+-            <element signature="e#306#307#0" expanded="true" />
+           </folding>
+         </state>
+       </provider>
+@@ -493,52 +486,18 @@
+         </state>
+       </provider>
+     </entry>
+-    <entry file="jar:///usr/lib/jvm/java-1.7.0-openjdk-amd64/jre/lib/rt.jar!/sun/applet/Main.class">
++    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/util/List.java">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state vertical-scroll-proportion="0.14729951" vertical-offset="0" max-vertical-offset="4755">
+-          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="jar:///usr/lib/jvm/java-1.7.0-openjdk-amd64/jre/lib/rt.jar!/java/io/PrintStream.class">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state vertical-scroll-proportion="0.14962594" vertical-offset="4635" max-vertical-offset="5835">
+-          <caret line="355" column="30" selection-start-line="355" selection-start-column="30" selection-end-line="355" selection-end-column="30" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="jar:///usr/lib/jvm/java-1.7.0-openjdk-amd64/jre/lib/rt.jar!/java/lang/String.class">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state vertical-scroll-proportion="0.22422259" vertical-offset="14323" max-vertical-offset="16020">
+-          <caret line="1022" column="38" selection-start-line="1022" selection-start-column="38" selection-end-line="1022" selection-end-column="38" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="jar:///usr/lib/jvm/java-1.7.0-openjdk-amd64/jre/lib/rt.jar!/java/util/Map.class">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state vertical-scroll-proportion="0.2244389" vertical-offset="0" max-vertical-offset="795">
+-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="jar:///usr/lib/jvm/java-1.7.0-openjdk-amd64/jre/lib/rt.jar!/java/util/HashMap.class">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state vertical-scroll-proportion="0.24064171" vertical-offset="0" max-vertical-offset="10740">
+-          <caret line="28" column="66" selection-start-line="28" selection-start-column="66" selection-end-line="28" selection-end-column="66" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="jar:///usr/lib/jvm/java-1.7.0-openjdk-amd64/jre/lib/rt.jar!/java/util/TreeMap.class">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state vertical-scroll-proportion="-5.48" vertical-offset="6178" max-vertical-offset="25245">
+-          <caret line="481" column="11" selection-start-line="481" selection-start-column="11" selection-end-line="481" selection-end-column="42" />
++        <state vertical-scroll-proportion="0.0" vertical-offset="3348" max-vertical-offset="12870">
++          <caret line="237" column="12" selection-start-line="237" selection-start-column="12" selection-end-line="237" selection-end-column="12" />
++          <folding />
+         </state>
+       </provider>
+     </entry>
+     <entry file="file://$PROJECT_DIR$/src/Main.java">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
+-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
++        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
++          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+           <folding>
+             <element signature="imports" expanded="true" />
+           </folding>
+@@ -547,12 +506,10 @@
+     </entry>
+     <entry file="file://$PROJECT_DIR$/src/LogParser.java">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state vertical-scroll-proportion="0.57746476" vertical-offset="384" max-vertical-offset="810">
+-          <caret line="42" column="16" selection-start-line="42" selection-start-column="16" selection-end-line="42" selection-end-column="16" />
++        <state vertical-scroll-proportion="0.29577464" vertical-offset="54" max-vertical-offset="918">
++          <caret line="11" column="38" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="38" />
+           <folding>
+             <element signature="imports" expanded="true" />
+-            <element signature="e#253#254#0" expanded="true" />
+-            <element signature="e#306#307#0" expanded="true" />
+           </folding>
+         </state>
+       </provider>
+@@ -597,7 +554,7 @@
+       </state>
+       <state key="JdkListConfigurable.UI">
+         <settings>
+-          <last-edited>1.7</last-edited>
++          <last-edited>1.8</last-edited>
+           <splitter-proportions>
+             <option name="proportions">
+               <list>
+diff --git a/lab1/out/production/1st_lab/LogParser.class b/lab1/out/production/1st_lab/LogParser.class
+index 05faa8fbc516bbefb1f5eeca85f2bd953c6338ea..d2bffe9dbd87fc0638d7e00aa1bd104da1091cf0 100644
+GIT binary patch
+delta 1470
+zcmZ9M`%_e97{@<nFTBgy!$rX5Dss_Mb_qetk}hgtqCf^Dkrga(#MNb&V3(|{?S8-6
+z>86%Om+{van+0OV{Hdm<X8I5M6PoF_8j7Cx04n~l&-=X3_4|F^=j;z<=R%oZ{`>wi
+zu!C<*ZlX`|u!)DhTsG6MctmkT@u-R7F_Rn~H}Nx|#h@t>QLPOH7&aNf4scYTqXCYY
+zgotTzTvt1xi0kU3+A^js2}ROmoF|%1Dwxow$sj4xL8f?8i<63{gVgej7N>NS<UFf*
+z?)0TU>H<e&aXS$mvki(mjz_1WP4Q@Aw5caG5lf7=8hD1B-;L@9?__GiAg?DC9X`<+
+z9q)|}#ch{U#=vYlIc$%oV#&m$;(4du({1i?8^mP<&M8mS`P(z)ODbM)CcT4IVIl_W
+z+*avSEZ(#~I(bY=THMSQ=TC2Crrh<#l1=T2@pMX%*wL|WJ33+ug3?vrK7oCm-y+O*
+zEnd{(C5xAN#o}&ldsX-IL~0Zni`RJFz#mVJ#u659@TNhIT$1UO#ap~>@ec2fSiHyk
+zs}S93v?o&bs6AnEnhz`-K3w&>1bQcITL>sVviO)!G=NVn&Tv+7&f+sZ7v>h{xnS`H
+z(~2(*ik)U}v1#!Y(-vPd?RfkH<z-uzA7Cx>)~$z~0sr1hzxt~^^_%7CLFnjV$+=Z-
+z9vbk8E^`&x=;Q@zGq;F6AFs%u_$&&@qe*U-L_i_iXqMBUh3%5xDEb-MOP`#L3;6pN
+z$dRAw56=>qC3hCHGm<6P-}NKGhQ?W}i%WlrA#X+!yy#{j*<M|^lwxYglnA=@f+ys5
+z)%c|HN>{Dz;8y8gD*oHpDF`-5>g{6la)(6b<5{Fsv1^e+MJsoTO*6bpBIQX%6U4?5
+zX{qa`!$0Ah2^ZyODd>z`&bffEZ6@MxDJsme?kojbEpk=gOv88hBEFV6isvZFvi=I8
+zt~IuZS34s*x768fmSoBX-N^F3Yg`*JrER%1uMh~8GSn)HghDaZ@*o@KIcf!FoqU6v
+zuA`s6N<Ym#E`5s_yV>KC+R0w-U7?>s`4`Dk+!tEP2wk6|O~xR1#Xh`>`{gv2^ibA#
+z<mP(B6}Z85Ey;U>=W3EnbwBMZ+wikM(X&02S)ihSj>=i8I`p8jY?!CopffVhMnkq{
+zn<zB~SE%i3oTpA}p)6(RDG4v%Mb;Z++0=J&>9_E=8nwGI74jd5tZ`6QB`kB>C38C{
+zT9-VoUey|b5N4!?19XZiSXKrYq)mbz5WI)Psy8|;!3TJ7WqbvA|D{aPt>|g_M+hx{
+YB)y_NBnci4(;=rRiM2e%!JORx0WmNDH~;_u
+
+literal 3135
+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
+
+diff --git a/lab1/out/production/1st_lab/Main.class b/lab1/out/production/1st_lab/Main.class
+index d183f05601b600efb4ab53f8724c5ee648bc8455..fe05b3a51dd90d5927040a44331965858cd53fbd 100644
+GIT binary patch
+delta 675
+zcmYk3OHY$Q6o#MqS~~650c-(9i->sVVik)bqIg3owus^l@%9O|6rqsP7&nH*e_*;W
+z`Ul*&QR7D{iE-_(aO=h&V4`@2Zk)w==Y7waGw+$%FdNa;?|;911yU@yY$v7ZcX3GB
+za6G~Z23$@uXz3}JAx=j*!*G<doU`G)=AvfArJhunOBOFjF^p=`E^)@fT(LZ3Gh?<@
+zRx_@-st64giiPs4mv19MuasX=G)-4L^}4xVGof%tp3mf#%Y~)liso9S(MhCtkWfT2
+zOZf?}w2~_st~05*VYtaH&27US5{4=6YNieMxUYF&c*rAZXz+M!m|<3vtGsXqQcuVm
+z=9pE)=DlZLa=|O+lj&kPm$$78%!|X0a$zwyXn4x3?LJxg>9l=n4g656t@2iOIVi-J
+z#5Q3`K_yt%wTAkzncgWev?+#Zm%XVKu!|015q8rlP3+-c1PBV2)^VoR2xPju0)0Ng
+zkJR~ux_z`yxJpEk?OCnjD&8>KQzfeSh8dT#b?W6{L%h*vOK+8!O~ieggvOg|TFZZ$
+z&sLvp?>0UM-pjQ?tkrh3M3*p88pUjjd|N*aEDBpDwmCuvfjJQe*u#GDERH$ALBTNd
+z9HL7m>=tGxtyT3%Rj()wIDhEW9M&X%ljVqLL8&?_FVH7@hhyv$bVV~<U~ee$4-@xg
+A^#A|>
+
+delta 756
+zcmYk4$xjn;6vscmY3Z+>8McB21Qiin5U4CFRNO^H3WB&HZWT)%>;h#V98CH*m>!G=
+z&R)ET$q*zlo=yBG{4+d&Z@_~y$y>hfec!xgcCB5z^mFIicc35F<RFPK7c|2r0TRBr
+z7~v9^O|Ed&cdwaT=Z3`yH!W^)+ZUsnF-_8>%4d)JdcvZTyP8RpI;O(h^ZjW*GUb=L
+zuX&((s0a-^@87LA8BV*RKDm%uO~qGSCmSDi)5VlqD3)WY)eg@)*>paYODm$~Hua(5
+zku<1ztT0E`=F*F<Q^+rCX3D=*^K>&U3Y{%vdfYWv5lI#@ld0lzx@hx+S<O?MXFS)u
+zuz5*~O^R2VIh)s{HS;zZ-biU1hXtFrWHq^RuQ3?TQ?OYiTV66^u_cPqd#mf@(g~Yo
+zvVO7I^19JdTeCMrHkHrBr`@8H&wSl9eydWGtk!=F6w;!|L*m6nE7295o2V~);lm<B
+zdtjI&V%z%(v~pCu2yGmbB0^Txa*hhY)}lsoo50K_!SSxnK%Ym&1|bjK<q`IXY+<Sr
+z6Wv=_ijRzmVJm)6nFvbWHdVr`j@Ee8HU+nc`k^|Hdhw$N{(-UoK#vBG#!tH&fzR^s
+zAb!Jbghl%Qhb6B~RIc49#~z|uwo}7uNg#ik0qJ;%1nry<Y6nxC<do243OYG0I=~8D
+zbj#EhIeKJ824@8K_ps0G6=t6xwHP~eX!<n+nzMhH<eb1kNjxv4L9q>?92aex0#<T|
+Hj!@(;V3T*e
+
+diff --git a/lab1/src/LogParser.java b/lab1/src/LogParser.java
+index 984bc07..2ebfe4f 100644
+--- a/lab1/src/LogParser.java
++++ b/lab1/src/LogParser.java
+@@ -1,6 +1,4 @@
+-import java.io.BufferedReader;
+-import java.io.FileReader;
+-import java.io.IOException;
++import java.io.*;
+ import java.util.*;
+ 
+ 
+@@ -9,38 +7,39 @@ import java.util.*;
+  */
+ public class LogParser {
+     private HashMap<Integer, Integer> users;// ID, Time
+-    public LogParser(){
+-      users = new HashMap<Integer, Integer>();
++
++    public LogParser() {
++        users = new HashMap<Integer, Integer>();
+     }
++
+     public void parseLog(String filename) throws IOException {
+-        try(BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+-            String str = "";
+-            while (str != null) {
+-                str = reader.readLine();
+-                parseLine(str);
+-            }
+-        }
++        BufferedReader br = new BufferedReader(new InputStreamReader(
++                new FileInputStream(filename)));
++        String str;
++        while ((str = br.readLine()) != null)
++            parseLine(str);
++        br.close();
+     }
+ 
+-    private void parseLine(String line){
+-        if(line == null)
++    private void parseLine(String line) {
++        if (line == null)
+             return;
+         String[] splited = line.split(", ");
+-        if(splited.length != 3)
++        if (splited.length != 3)
+             return;
+-        if(!splited[2].equals("login") && !splited[2].equals("logout"))
++        if (!splited[2].equals("login") && !splited[2].equals("logout"))
+             return;
+ 
+-        Integer last = (Integer) users.get(Integer.parseInt(splited[1]));//if an user already come here at last
+-        users.put(Integer.parseInt(splited[1]),Integer.parseInt(splited[0]) * (splited.equals("login")?-1:1) +(last == null? 0: last));
++        Integer last = users.get(Integer.parseInt(splited[1]));//if an user already come here at last
++        users.put(Integer.parseInt(splited[1]), Integer.parseInt(splited[0]) * (splited.equals("login") ? -1 : 1) + (last == null ? 0 : last));
+ 
+     }
+ 
+-    public TreeMap<Integer,Integer> computeUsersTimes(){
+-        TreeMap outA = new TreeMap<Integer,Integer>(Collections.reverseOrder());//Time, Id
+-        for(Map.Entry<Integer,Integer> s: users.entrySet()) {
+-            if(s.getValue() > 0)
+-                outA.put(s.getValue(),s.getKey());
++    public TreeMap<Integer, Integer> computeUsersTimes() {
++        TreeMap outA = new TreeMap<Integer, Integer>(Collections.reverseOrder());//Time, Id
++        for (Map.Entry<Integer, Integer> s : users.entrySet()) {
++            if (s.getValue() > 0)
++                outA.put(s.getValue(), s.getKey());
+         }
+ 
+         return outA;
+diff --git a/lab1/src/Main.java b/lab1/src/Main.java
+index 73b7779..eee9968 100644
+--- a/lab1/src/Main.java
++++ b/lab1/src/Main.java
+@@ -7,7 +7,6 @@ import java.util.Map;
+  */
+ public class Main {
+     public static int main(String[] args) throws IOException {
+-        String filename = "log.txt";
+         LogParser lotParser = new LogParser();
+         lotParser.parseLog(args[0]);
+         System.out.println();
+-- 
+1.9.1
+
