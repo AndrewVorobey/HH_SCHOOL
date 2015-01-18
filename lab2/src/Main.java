@@ -46,11 +46,9 @@ public class Main {
                                 SelectionKey.OP_READ) {
                             SocketChannel sc = (SocketChannel) key.channel();
                             sc.read(Buffer);
-                            for (SelectionKey ToKey : selector.selectedKeys()) {
+                            for (SelectionKey ToKey : selector.keys()) {
                                 if (ToKey != key) {
-                                    //ToKey.interestOps(SelectionKey.OP_WRITE);
                                     ((SocketChannel) ToKey.channel()).write(Buffer);
-                                    //ToKey.interestOps(SelectionKey.OP_READ);
                                 }
                             }
                         }
